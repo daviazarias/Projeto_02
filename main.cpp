@@ -8,18 +8,12 @@ using namespace std;
 
 int main(){
     
-    TMatriz A, B, C;
-    int i = 2;
-    int j = 2;
-    int k = 3;
-    int l = 2;
-    int m, n;
+    int lin, col, cinza;
+    TMatriz matriz;
+
+    if(!leiturapgm("stanford.pgm", matriz, &lin, &col, &cinza)) return 1;
+    claro(matriz, lin, col, 100);
+    escrevepgm("stanford1.pgm", matriz, lin, col);
     
-    gerar(A, i, j, 10);
-    gerar(B, k, l, 10);
-    imprime(A, i, j);
-    imprime(B, k, l);
-    prodmat(A, i, j, B, k, l ,C, &m, &n);
-    imprime(C, m, n);
     return 0;
 }

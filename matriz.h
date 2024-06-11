@@ -2,7 +2,7 @@
 #ifndef MATRIZ_H
 #define MATRIZ_H
 
-#define TAM 128
+#define TAM 1024
 
 typedef int TMatriz[TAM][TAM];
 
@@ -23,6 +23,11 @@ int somalin(TMatriz m, int nc, int i);
 void escrevematriz(const char *arquivo, TMatriz m, int nl, int nc);
 bool leituramatriz(const char *arquivo, TMatriz m);
 bool compara(TMatriz m1, int nl1, int nc1, TMatriz m2, int nl2, int nc2);
+
+void claro(TMatriz m, int lin, int col, int intensidade);
+void escuro(TMatriz m, int lin, int col, int intensidade);
+void escrevepgm(const char *arquivo, TMatriz m, int lin, int col);
+bool leiturapgm(const char *arquivo, TMatriz m, int *lin, int *col, int *cinza);
 
 #ifdef __cplusplus
 }
