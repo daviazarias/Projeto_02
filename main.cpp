@@ -2,18 +2,21 @@
 #include <iostream>
 #include <time.h>
 #include <fstream>
-#include "matriz.h"
+#include "pgmmanip.h"
 
 using namespace std;
 
 int main(){
     
     int lin, col, cinza;
-    TMatriz matriz;
+    TMatriz matriz, suavizada;
+    srand(time(NULL));
+    if(!leiturapgm("stanford.pgm", matriz, &col, &lin, &cinza)) 
+        return 1;
+    ruido("ruido.pgm", matriz, col, lin, cinza);
+    if(!leiturapgm("ruido.pgm", matriz, &col, &lin, &cinza)) 
+        return 1;
+    suavizar("stanford1.pgm", matriz, col, lin, cinza);
 
-    if(!leiturapgm("stanford.pgm", matriz, &lin, &col, &cinza)) return 1;
-    claro(matriz, lin, col, 100);
-    escrevepgm("stanford1.pgm", matriz, lin, col);
-    
     return 0;
 }
