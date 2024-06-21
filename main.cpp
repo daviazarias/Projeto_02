@@ -1,6 +1,6 @@
 /*
  * File:   main.cpp
- * Author: Vinicius Ribeiro da Silva do Carmo ( 2023.2.08.003 ) e Davi Azarias ( 2024.1.08.006 )
+ * Author: Vinicius Ribeiro da Silva do Carmo ( 2023.2.08.003 ) e Davi Azarias do Vale Cabral ( 2024.1.08.006 )
  *
  * Created on 17 de junho de 2024, 15:00
  */
@@ -80,6 +80,10 @@ int main(){
                 
                 cout << "\n Digite a intensidade para clarear a imagem (%): ";
                 cin >> intensidade;
+                while(intensidade <= 0 || intensidade > 100){
+                    cout << "\n Valor inválido, por favor digite um número entre 1 e 100: ";
+                    cin >> intensidade;
+                }
                 cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 claro(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
@@ -97,7 +101,7 @@ int main(){
             case 4: // Binarizar a Imagem //
 
                 cout << "\n Digite o fator para binarizar a imagem: ";
-                cin >> intensidade;
+                cin >> intensidade;                       
                 cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm':";
                 cin >> nomeArquivoSaida;
                 binaria(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
@@ -116,6 +120,10 @@ int main(){
 
                 cout << "\n Digite a intensidade de ruído (%): ";
                 cin >> intensidade;
+                while (intensidade <= 0 || intensidade > 100) {
+                    cout << "\n Valor inválido, por favor digite um número entre 1 e 100: ";
+                    cin >> intensidade;
+                }
                 cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm':";
                 cin >> nomeArquivoSaida;
                 ruido(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);

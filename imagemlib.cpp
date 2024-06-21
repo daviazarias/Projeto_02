@@ -6,7 +6,8 @@
 
 /*
  * Função que lê um arquivo em formato .pgm "P2" e preenche uma matriz com os valores de cada pixel da imagem.
- * Ela retorna o valor 0 caso o arquivo seja encontrado e tenha o texto "P2" em sua primeira linha ou retorna 1 caso contrário. 
+ * Ela retorna o valor 0 caso o arquivo seja encontrado, tenha o texto "P2" em sua primeira linha e tenha a quantidade
+ * de linhas e colunas menor ou igual a 1024, ou retorna 1 caso uma dessas condições não seja satisfeita. 
  * Parâmetros:
  * - Nome do arquivo a ser gerado.
  * - Endereço de memória da matriz onde está a imagem de entrada.
@@ -16,18 +17,18 @@
  */
 int leiturapgm(const char *arquivo, TMatriz m, int *col, int *lin, int *cinza){
     FILE *arq;
+    char P2[3];
     arq = fopen(arquivo, "r");
         
     if(arq == NULL)
         return 1; 
     
-    char P2[3];
     fscanf(arq, "%s", P2);
+    fscanf(arq, "%d %d", col, lin);
 
-    if(strcmp(P2, "P2"))
+    if(strcmp(P2, "P2") || *col > 1024 || *lin > 1024)
         return 1;
     
-    fscanf(arq, "%d %d", col, lin);
     fscanf(arq, "%d", cinza);
     
     for(int i = 0; i < *lin; i++){
@@ -158,13 +159,11 @@ void binaria(const char *arquivo, TMatriz m, int col, int lin, int cinza, int fa
 void ruido(const char *arquivo, TMatriz m, int col, int lin, int cinza, int intensidade){
     FILE *arq;
     int ruido;
-    float percnt = (float) intensidade/100;
-    intensidade = 1/percnt + 3;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
     for (int i = 0; i < lin; i++){
         for (int j = 0; j < col; j++){
-            ruido = rand() % intensidade;
+            ruido = rand() % (22 - intensidade/5);
             if(ruido == 0){
                 fprintf(arq, "0 ");
             } else if (ruido == 1){
