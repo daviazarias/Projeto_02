@@ -57,7 +57,7 @@ int main(){
     separador();
 
     char nomeArquivoEntrada[1024]; // um vetor de caracteres para armazenar o nome do arquivo de entrada //
-    cout << "\n Digite o nome do arquivo PGM de entrada: ";
+    cout << "\n Digite o nome do arquivo PGM de entrada, digitando 'nomeArquivo.pgm': ";
     cin >> nomeArquivoEntrada;
 
     TMatriz imagem; // armazena os dados da imagem em formato PGM após a leitura do arquivo //
@@ -85,7 +85,7 @@ int main(){
 
                 cout << "\n Digite a intensidade para escurecer a imagem (%): ";
                 cin >> intensidade;
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 escuro(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
                 
@@ -95,7 +95,7 @@ int main(){
                 
                 cout << "\n Digite a intensidade para clarear a imagem (%): ";
                 cin >> intensidade;
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 claro(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
                 
@@ -103,7 +103,7 @@ int main(){
             
             case 3: // Negativo da imagem //
 
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 negativo(nomeArquivoSaida, imagem, colunas, linhas, maxTons);
                 
@@ -113,7 +113,7 @@ int main(){
 
                 cout << "\n Digite o fator para binarizar a imagem: ";
                 cin >> intensidade;
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm':";
                 cin >> nomeArquivoSaida;
                 binaria(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
                 
@@ -121,7 +121,7 @@ int main(){
             
             case 5: // Iconizar a Imagem //
 
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 iconizar(nomeArquivoSaida, imagem, colunas, linhas, maxTons);
                 
@@ -131,7 +131,7 @@ int main(){
 
                 cout << "\n Digite a intensidade de ruído (%): ";
                 cin >> intensidade;
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm':";
                 cin >> nomeArquivoSaida;
                 ruido(nomeArquivoSaida, imagem, colunas, linhas, maxTons, intensidade);
                 
@@ -139,7 +139,7 @@ int main(){
             
             case 7: // Aplicar Filtro //
 
-                cout << "\n Digite o nome do arquivo de saída: ";
+                cout << "\n Digite o nome do arquivo de saída, digitando 'nomeArquivo.pgm': ";
                 cin >> nomeArquivoSaida;
                 suavizar(nomeArquivoSaida, imagem, colunas, linhas, maxTons);
                 
