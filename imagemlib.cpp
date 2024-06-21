@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
@@ -59,9 +59,9 @@ void claro(const char *arquivo, TMatriz m, int col, int lin, int cinza, int inte
     intensidade = cinza*intensidade/100;
     for(int i = 0; i < lin; i++){
         for(int j = 0; j < col; j++){
-            if(m[i][j] <= 255 - intensidade)
+            if(m[i][j] <= cinza - intensidade)
                 fprintf(arq, "%d ", m[i][j] + intensidade);
-            else fprintf(arq, "255 ");
+            else fprintf(arq, "%d ", cinza);
         }
         fprintf(arq, "\n");
     }
@@ -139,7 +139,7 @@ void binaria(const char *arquivo, TMatriz m, int col, int lin, int cinza, int fa
         for(int j = 0; j < col; j++){
             if(m[i][j] > fator)
                 fprintf(arq, "%d ", cinza);
-            else fprintf(arq, "%d ", 0);
+            else fprintf(arq, "0 ");
         }
         fprintf(arq, "\n");
     }
@@ -159,14 +159,14 @@ void ruido(const char *arquivo, TMatriz m, int col, int lin, int cinza, int inte
     FILE *arq;
     int ruido;
     float percnt = (float) intensidade/100;
-    intensidade = 1/percnt + 1;
+    intensidade = 1/percnt + 3;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
     for (int i = 0; i < lin; i++){
         for (int j = 0; j < col; j++){
             ruido = rand() % intensidade;
             if(ruido == 0){
-                fprintf(arq, "%d ", 0);
+                fprintf(arq, "0 ");
             } else if (ruido == 1){
                 fprintf(arq, "%d ", cinza);
             } else fprintf(arq, "%d ", m[i][j]);
@@ -194,7 +194,7 @@ void iconizar(const char *arquivo, TMatriz m, int col, int lin, int cinza){
     int iconlin= lin/64, iconcol = col/64;
     int pixel;
     arq = fopen(arquivo, "w");
-    fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
+    fprintf(arq, "P2\n64 64\n%d\n", cinza);
     for(int i = 0; i < 64; i++){
         for(int j = 0; j < 64; j++){
             int soma = 0;

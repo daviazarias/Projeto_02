@@ -3,18 +3,16 @@
 #define MATRIZ_H
 
 #define TAM 1024
-#define TRUE 0
-#define FALSE 1
 
-typedef int TMatriz[TAM][TAM];
+typedef int TMatriz[404][600];
 
 #ifdef __cplusplus
 extern "C" {
 #endif
     
 int leiturapgm(const char *arquivo, TMatriz m, int *col, int *lin, int *cinza);
-void claro(TMatriz m, int col, int lin, int cinza, int intensidade);
-void escuro(TMatriz m, int col, int lin, int cinza, int intensidade);
+void claro(const char *arquivo, TMatriz m, int col, int lin, int cinza, int intensidade);
+void escuro(const char *arquivo, TMatriz m, int col, int lin, int cinza, int intensidade);
 void binaria(const char *arquivo, TMatriz m, int col, int lin, int cinza, int fator);
 void ruido(const char *arquivo, TMatriz m, int col, int lin, int cinza, int intensidade);
 void negativo(const char *arquivo, TMatriz m, int col, int lin, int cinza);
