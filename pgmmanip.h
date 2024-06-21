@@ -3,7 +3,7 @@
 
 #define TAM 1024
 
-typedef int TMatriz[404][600];
+typedef int TMatriz[TAM][TAM];
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,4 +23,3 @@ void suavizar(const char *arquivo, TMatriz m, int col, int lin, int cinza);
 #endif
 
 #endif /* MATRIZ_H */
-
