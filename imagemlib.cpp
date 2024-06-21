@@ -7,7 +7,6 @@
 /*
  * Função que lê um arquivo em formato .pgm "P2" e preenche uma matriz com os valores de cada pixel da imagem.
  * Ela retorna o valor 0 caso o arquivo seja encontrado e tenha o texto "P2" em sua primeira linha ou retorna 1 caso contrário. 
- * 
  * Parâmetros:
  * - Nome do arquivo a ser gerado.
  * - Endereço de memória da matriz onde está a imagem de entrada.
@@ -58,12 +57,14 @@ void claro(const char *arquivo, TMatriz m, int col, int lin, int cinza, int inte
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
     
     intensidade = cinza*intensidade/100;
-    for(int i = 0; i < lin; i++)
+    for(int i = 0; i < lin; i++){
         for(int j = 0; j < col; j++){
             if(m[i][j] <= 255 - intensidade)
-                m[i][j] += intensidade;
-            else m[i][j] = 255;
+                fprintf(arq, "%d ", m[i][j] + intensidade);
+            else fprintf(arq, "255 ");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
@@ -83,17 +84,19 @@ void escuro(const char *arquivo, TMatriz m, int col, int lin,int cinza, int inte
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
     
     intensidade = cinza*intensidade/100;
-    for(int i = 0; i < lin; i++)
+    for(int i = 0; i < lin; i++){
         for(int j = 0; j < col; j++){
             if(m[i][j] >= intensidade)
-                m[i][j] -= intensidade;
-            else m[i][j] = 0;
+                fprintf(arq, "%d ", m[i][j] - intensidade);
+            else fprintf(arq, "0 ");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
 /*
- * Função que cria uma imagem negativa a partir de uma imagem de entrada.
+ * Função que cria a imagem negativa de uma imagem de entrada.
  * Parâmetros:
  * - Nome do arquivo a ser gerado.
  * - Endereço de memória da matriz onde está a imagem de entrada.
@@ -105,12 +108,12 @@ void negativo(const char *arquivo, TMatriz m, int col, int lin, int cinza){
     FILE *arq;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
-    for(int i = 0; i < lin; i++)
+    for(int i = 0; i < lin; i++){
         for(int j = 0; j < col; j++){
             fprintf(arq, "%d ", cinza - m[i][j]);
-            if(j == col - 1)
-                fprintf(arq, "\n");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
@@ -132,19 +135,19 @@ void binaria(const char *arquivo, TMatriz m, int col, int lin, int cinza, int fa
     FILE *arq;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
-    for(int i = 0; i < lin; i++)
+    for(int i = 0; i < lin; i++){
         for(int j = 0; j < col; j++){
             if(m[i][j] > fator)
                 fprintf(arq, "%d ", cinza);
             else fprintf(arq, "%d ", 0);
-            if(j == col - 1)
-                fprintf(arq, "\n");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
 /*
- * Função que gera ruídos em preto e branco em uma imagem de entrada, gerando uma outra imagem. 
+ * Função que gera ruídos em preto e branco em uma imagem de entrada, criando uma outra imagem. 
  * Parâmetros:
  * - Nome do arquivo a ser gerado.
  * - Endereço de memória da matriz onde está a imagem de entrada.
@@ -159,7 +162,7 @@ void ruido(const char *arquivo, TMatriz m, int col, int lin, int cinza, int inte
     intensidade = 1/percnt + 1;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
-    for (int i = 0; i < lin; i++)
+    for (int i = 0; i < lin; i++){
         for (int j = 0; j < col; j++){
             ruido = rand() % intensidade;
             if(ruido == 0){
@@ -167,16 +170,16 @@ void ruido(const char *arquivo, TMatriz m, int col, int lin, int cinza, int inte
             } else if (ruido == 1){
                 fprintf(arq, "%d ", cinza);
             } else fprintf(arq, "%d ", m[i][j]);
-            if(j == col - 1)
-                fprintf(arq, "\n");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
 /*
  * Função que gera um ícone 64x64 a partir de uma imagem de entrada. Cada pixel do ícone
  * equivale à média dos pixels da imagem de entrada. A quantidade de pixels da imagem de entrada
- * usados para calcular um pixel do ícone dependerá do tamanho da imagem de entrada.
+ * usados para calcular um pixel do ícone dependerá de seu tamanho.
  * Número de linhas usadas = Parte inteira de (número de linhas da imagem de entrada / 64).
  * Número de colunas usadas = Parte inteira de (número de colunas da imagem de entrada / 64).
  * Parâmetros:
@@ -192,7 +195,7 @@ void iconizar(const char *arquivo, TMatriz m, int col, int lin, int cinza){
     int pixel;
     arq = fopen(arquivo, "w");
     fprintf(arq, "P2\n%d %d\n%d\n", col, lin, cinza);
-    for(int i = 0; i < 64; i++)
+    for(int i = 0; i < 64; i++){
         for(int j = 0; j < 64; j++){
             int soma = 0;
             for(int k = i*iconlin; k < iconlin*(i+1); k++)
@@ -201,9 +204,9 @@ void iconizar(const char *arquivo, TMatriz m, int col, int lin, int cinza){
                 }
             pixel = soma/(iconlin*iconcol);
             fprintf(arq, "%d ", pixel);
-            if(j == 63)
-                fprintf(arq, "\n");
         }
+        fprintf(arq, "\n");
+    }
     fclose(arq);
 }
 
@@ -213,7 +216,7 @@ void iconizar(const char *arquivo, TMatriz m, int col, int lin, int cinza){
  */
 int mediana(int vetor[9]){
     int aux;
-    //Algoritmo de ordenação por inserção, que garanta que os elementos no vetor estejam dispostos em ordem crescente.
+    //Algoritmo de ordenação por inserção, que garante que os elementos no vetor estejam dispostos em ordem crescente.
     for (int i = 1; i < 9; i++) {
         aux = vetor[i];
         int j = i - 1;
@@ -255,10 +258,8 @@ void suavizar(const char *arquivo, TMatriz m, int col, int lin, int cinza){
                 }
             }
             fprintf(arq, "%d ", mediana(pixel));
-            if(j == 16)
-                fprintf(arq, "\n");
         }
+        fprintf(arq, "\n");
     }
     fclose(arq);
 }
-
